@@ -20,16 +20,32 @@ endfunction(pushd_library)
 function(pushd_executable TARGET_NAME)
     list(TRANSFORM "ARGN" PREPEND "${TARGET_NAME}/src/")
     add_executable("${TARGET_NAME}" ${ARGN})
+    if(UNIX)
+        set_target_properties("${TARGET_NAME}" PROPERTIES OUTPUT_NAME "${TARGET_NAME}.exe")
+    endif(UNIX)
 endfunction(pushd_executable)
+
+function(attach_protobuf TARGET_NAME PROTOBUF_FILE_BASENAME)
+    add_custom_command(
+        OUTPUT
+            "${PROJECT_BINARY_DIR}/${TARGET_NAME}/proto/${PROTOBUF_FILE_BASENAME}.pb-c.c"
+        COMMAND
+            "protoc-c" "--c_out=${PROJECT_BINARY_DIR}"
+            "-I${PROJECT_SOURCE_DIR}"
+            "${TARGET_NAME}/proto/${PROTOBUF_FILE_BASENAME}.proto"
+    )
+    target_sources(
+        "${TARGET_NAME}"
+        PRIVATE
+            "${PROJECT_BINARY_DIR}/${TARGET_NAME}/proto/${PROTOBUF_FILE_BASENAME}.pb-c.c"
+    )
+    target_include_directories("${TARGET_NAME}" PRIVATE "${PROJECT_BINARY_DIR}")
+    target_link_libraries("${TARGET_NAME}" PRIVATE "protobuf-c")
+endfunction(attach_protobuf)
 
 pushd_library("management" "util.c")
 target_include_directories("management" PUBLIC "management/include")
 
-add_custom_command(
-    OUTPUT "${PROJECT_BINARY_DIR}/bank/proto/BankState.pb-c.c"
-    COMMAND "protoc-c" "--c_out=${PROJECT_BINARY_DIR}"
-            "-I${PROJECT_SOURCE_DIR}" "bank/proto/BankState.proto"
-)
 pushd_executable(
     "bank"
     "bank.c"
@@ -39,11 +55,8 @@ pushd_executable(
     "structure.c"
     "today.c"
 )
-if(UNIX)
-    set_target_properties("bank" PROPERTIES OUTPUT_NAME "bank.exe")
-endif(UNIX)
-target_sources(
-    "bank" PRIVATE "${PROJECT_BINARY_DIR}/bank/proto/BankState.pb-c.c"
-)
-target_include_directories("bank" PRIVATE "${PROJECT_BINARY_DIR}")
-target_link_libraries("bank" PRIVATE "management" "protobuf-c")
+target_link_libraries("bank" PRIVATE "management")
+attach_protobuf("bank" "BankState")
+
+pushd_executable("quiz" "quiz.c")
+target_link_libraries("quiz" PRIVATE "management")
