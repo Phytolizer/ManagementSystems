@@ -112,7 +112,7 @@ int main(int argc, char** argv)
         case 1: {
             printf("Enter account name: ");
             char name[256];
-            if (scanf("%255s", name) != 1)
+            if (scanf("%255[^\n]%*c", name) != 1)
             {
                 fprintf(stderr, "Failed to read account name.\n");
                 return 1;
@@ -123,6 +123,9 @@ int main(int argc, char** argv)
             account.name.size = strlen(name);
             account.name.data = malloc(account.name.size + 1);
             strcpy(account.name.data, name);
+            account.id = state.accounts.size;
+            account.balance = 0;
+            printf("Your account ID is %ld. Don't forget it!\n", account.id);
             AccountVector_push(&state.accounts, account);
             break;
         }
