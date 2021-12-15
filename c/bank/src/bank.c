@@ -1,4 +1,6 @@
 #include "config.h"
+#include "load.h"
+#include "structure.h"
 #include <getopt.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -62,5 +64,24 @@ int main(int argc, char** argv)
             return print_help(argv, 1);
         }
     }
+
+    State state;
+    State_init(&state);
+
+    if (loadfile != NULL)
+    {
+        FILE* fp = fopen(loadfile, "r");
+        if (fp == NULL)
+        {
+            fprintf(stderr, "Failed to open %s for reading.\n", loadfile);
+            return 1;
+        }
+        if (!State_load(&state, fp))
+        {
+            fprintf(stderr, "Failed to load %s.\n", loadfile);
+            return 1;
+        }
+    }
+
     return 0;
 }

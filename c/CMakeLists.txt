@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.12...3.22)
 
-project("LeetCode in C" LANGUAGES "C" VERSION "0.1.0")
+project(
+    "LeetCode in C"
+    LANGUAGES "C"
+    VERSION "0.1.0"
+)
 
 list(APPEND "CMAKE_MODULE_PATH" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -26,7 +30,7 @@ add_custom_command(
     COMMAND "protoc-c" "--c_out=${PROJECT_BINARY_DIR}"
             "-I${PROJECT_SOURCE_DIR}" "bank/proto/BankState.proto"
 )
-pushd_executable("bank" "bank.c" "structure.c")
+pushd_executable("bank" "bank.c" "load.c" "structure.c")
 if(UNIX)
     set_target_properties("bank" PROPERTIES OUTPUT_NAME "bank.exe")
 endif(UNIX)
