@@ -7,7 +7,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-static const struct option options[] = {
+static const struct option g_options[] = {
     {"help", no_argument, NULL, 'h'},  {"version", no_argument, NULL, 'V'},   {"verbose", no_argument, NULL, 'v'},
     {"debug", no_argument, NULL, 'd'}, {"log", required_argument, NULL, 'l'}, {"load", required_argument, NULL, 'L'},
 };
@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     bool debug = false;
     char* logfile = NULL;
     char* loadfile = NULL;
-    while ((opt = getopt_long(argc, argv, "hVvldl:L:", options, NULL)) != -1)
+    while ((opt = getopt_long(argc, argv, "hVvldl:L:", g_options, NULL)) != -1)
     {
         switch (opt)
         {
