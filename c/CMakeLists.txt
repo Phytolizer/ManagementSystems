@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12...3.22)
 
 project(
-    "LeetCode in C"
+    "Management Systems in C"
     LANGUAGES "C"
     VERSION "0.1.0"
 )
