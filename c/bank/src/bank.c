@@ -107,6 +107,12 @@ int main(int argc, char** argv)
             fprintf(stderr, "Failed to read choice.\n");
             return 1;
         }
+        {
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF)
+            {
+            }
+        }
         switch (choice)
         {
         case 1: {
@@ -257,7 +263,8 @@ int main(int argc, char** argv)
             for (size_t i = 0; i < state.transaction_history.size; ++i)
             {
                 Transaction* transaction = &state.transaction_history.data[i];
-                printf("%ld: $%ld.%ld\n", transaction->account_id, transaction->amount / 100,
+                printf("% 4d-%2d-%2d: %ld: $%ld.%ld\n", transaction->date.year, transaction->date.month,
+                       transaction->date.day, transaction->account_id, transaction->amount / 100,
                        transaction->amount % 100);
             }
             break;
@@ -279,8 +286,11 @@ int main(int argc, char** argv)
             printf("Quitting...\n");
             return 0;
         }
+        default: {
+            fprintf(stderr, "Invalid choice.\n");
+            return 1;
         }
-    }
+        }
 
-    return 0;
-}
+        return 0;
+    }
