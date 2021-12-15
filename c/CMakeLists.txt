@@ -30,7 +30,15 @@ add_custom_command(
     COMMAND "protoc-c" "--c_out=${PROJECT_BINARY_DIR}"
             "-I${PROJECT_SOURCE_DIR}" "bank/proto/BankState.proto"
 )
-pushd_executable("bank" "bank.c" "load.c" "save.c" "structure.c")
+pushd_executable(
+    "bank"
+    "bank.c"
+    "find.c"
+    "load.c"
+    "save.c"
+    "structure.c"
+    "today.c"
+)
 if(UNIX)
     set_target_properties("bank" PROPERTIES OUTPUT_NAME "bank.exe")
 endif(UNIX)

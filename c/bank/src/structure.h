@@ -39,6 +39,10 @@ typedef struct
     Date date;
 } Transaction;
 
+void Transaction_init(Transaction* transaction);
+/// A no-op. This exists in case Transactions start having more fields.
+void Transaction_deinit(Transaction* transaction);
+
 VECTOR_DECLARATION(AccountVector, Account);
 VECTOR_DECLARATION(TransactionVector, Transaction);
 

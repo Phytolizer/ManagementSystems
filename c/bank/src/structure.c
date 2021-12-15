@@ -26,6 +26,20 @@ void Account_deinit(Account* account)
     String_deinit(&account->name);
 }
 
+void Transaction_init(Transaction* transaction)
+{
+    transaction->amount = 0;
+    transaction->account_id = 0;
+    transaction->date.year = 0;
+    transaction->date.month = 0;
+    transaction->date.day = 0;
+}
+
+void Transaction_deinit(Transaction* transaction)
+{
+    // Nothing to do.
+}
+
 void State_init(State* state)
 {
     AccountVector_init(&state->accounts);
