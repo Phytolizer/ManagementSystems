@@ -51,7 +51,7 @@
         if (vector->size == vector->capacity)                                                                          \
         {                                                                                                              \
             size_t new_capacity = vector->capacity ? vector->capacity * 2 : 1;                                         \
-            ValueType* new_data = (ValueType*)realloc(vector->data, new_capacity * sizeof(ValueType));                 \
+            ValueType* new_data = realloc(vector->data, new_capacity * sizeof(ValueType));                             \
             if (!new_data)                                                                                             \
             {                                                                                                          \
                 return;                                                                                                \
