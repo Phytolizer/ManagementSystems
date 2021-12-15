@@ -11,8 +11,9 @@
 #include <string.h>
 
 static const struct option g_options[] = {
-    {"help", no_argument, NULL, 'h'},  {"version", no_argument, NULL, 'V'},   {"verbose", no_argument, NULL, 'v'},
-    {"debug", no_argument, NULL, 'd'}, {"log", required_argument, NULL, 'l'}, {"load", required_argument, NULL, 'L'},
+    {"help", no_argument, NULL, 'h'},
+    {"version", no_argument, NULL, 'V'},
+    {"load", required_argument, NULL, 'L'},
 };
 
 int Bank_print_help(char** argv, int return_code)
@@ -22,9 +23,6 @@ int Bank_print_help(char** argv, int return_code)
     printf("\n");
     printf("  -h, --help            display this help and exit\n");
     printf("  -V, --version         output version information and exit\n");
-    printf("  -v, --verbose         verbose output\n");
-    printf("  -d, --debug           debug output\n");
-    printf("  -l, --log=FILE        log to FILE\n");
     printf("  -L, --load=FILE       load FILE\n");
     printf("\n");
     printf("Report bugs to %s <%s>.\n", CMAKE_AUTHOR_NAME, CMAKE_AUTHOR_EMAIL);
@@ -40,11 +38,8 @@ int Bank_print_version(void)
 int main(int argc, char** argv)
 {
     int opt;
-    bool verbose = false;
-    bool debug = false;
-    char* logfile = NULL;
     char* loadfile = NULL;
-    while ((opt = getopt_long(argc, argv, "hVvldl:L:", g_options, NULL)) != -1)
+    while ((opt = getopt_long(argc, argv, "hVL:", g_options, NULL)) != -1)
     {
         switch (opt)
         {
@@ -52,15 +47,6 @@ int main(int argc, char** argv)
             return Bank_print_help(argv, 0);
         case 'V':
             return Bank_print_version();
-        case 'v':
-            verbose = true;
-            break;
-        case 'd':
-            debug = true;
-            break;
-        case 'l':
-            logfile = optarg;
-            break;
         case 'L':
             loadfile = optarg;
             break;
