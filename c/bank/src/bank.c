@@ -1,5 +1,6 @@
 #include "config.h"
 #include "load.h"
+#include "save.h"
 #include "structure.h"
 #include <getopt.h>
 #include <stdbool.h>
@@ -70,7 +71,7 @@ int main(int argc, char** argv)
 
     if (loadfile != NULL)
     {
-        FILE* fp = fopen(loadfile, "r");
+        FILE* fp = fopen(loadfile, "rb");
         if (fp == NULL)
         {
             fprintf(stderr, "Failed to open %s for reading.\n", loadfile);
@@ -81,6 +82,18 @@ int main(int argc, char** argv)
             fprintf(stderr, "Failed to load %s.\n", loadfile);
             return 1;
         }
+    }
+
+    FILE* savefp = fopen("bank.dat", "wb");
+    if (savefp == NULL)
+    {
+        fprintf(stderr, "Failed to open bank.dat for writing.\n");
+        return 1;
+    }
+    if (!State_save(&state, savefp))
+    {
+        fprintf(stderr, "Failed to save bank.dat.\n");
+        return 1;
     }
 
     return 0;
