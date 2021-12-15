@@ -1,5 +1,9 @@
 #pragma once
 
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
+
 #define VECTOR_PROTOTYPES_(VectorType, ValueType)                                                                      \
     void VectorType##_init(VectorType* vector);                                                                        \
     void VectorType##_deinit(VectorType* vector);                                                                      \
@@ -16,9 +20,20 @@
     typedef struct                                                                                                     \
     {                                                                                                                  \
         bool is_valid;                                                                                                 \
-        void (*f)(ValueType);                                                                                          \
+        void (*f)(ValueType*);                                                                                         \
     } VectorType##Destructor_;                                                                                         \
     VECTOR_PROTOTYPES_(VectorType, ValueType)
+
+#define VECTOR_DESTRUCTOR(VectorType, Function)                                                                        \
+    ((VectorType##Destructor_){                                                                                        \
+        .is_valid = true,                                                                                              \
+        .f = Function,                                                                                                 \
+    })
+
+#define VECTOR_DESTRUCTOR_NONE(VectorType)                                                                             \
+    ((VectorType##Destructor_){                                                                                        \
+        .is_valid = false,                                                                                             \
+    })
 
 #define VECTOR_INIT_IMPL_(VectorType, ValueType)                                                                       \
     void VectorType##_init(VectorType* vector)                                                                         \
@@ -34,11 +49,11 @@
         static const VectorType##Destructor_ dtor = Destructor;                                                        \
         if (vector->data)                                                                                              \
         {                                                                                                              \
-            if (dtor.isValid)                                                                                          \
+            if (dtor.is_valid)                                                                                         \
             {                                                                                                          \
                 for (size_t i = 0; i < vector->size; ++i)                                                              \
                 {                                                                                                      \
-                    dtor.f(vector->data[i]);                                                                           \
+                    dtor.f(&vector->data[i]);                                                                          \
                 }                                                                                                      \
             }                                                                                                          \
             free(vector->data);                                                                                        \
