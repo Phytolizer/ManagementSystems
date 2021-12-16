@@ -58,6 +58,7 @@
             }                                                                                                          \
             free(vector->data);                                                                                        \
         }                                                                                                              \
+        VectorType##_init(vector);                                                                                     \
     }
 
 #define VECTOR_PUSH_IMPL_(VectorType, ValueType)                                                                       \

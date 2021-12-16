@@ -3,6 +3,8 @@
 #include "management/util.h"
 #include "question.h"
 #include <quiz/proto/Quiz.pb-c.h>
+#include <stdlib.h>
+#include <string.h>
 
 ARRAY_IMPLEMENTATION(ByteArray, uint8_t, ARRAY_DESTRUCTOR_NONE(ByteArray));
 
@@ -309,7 +311,24 @@ ConstantQuestion g_second_round[] = {
     },
 };
 
-ByteArray Quiz_enter_data(void)
+Question ConstantQuestion_into_question(ConstantQuestion* q)
+{
+    Question question;
+    Question_init(&question);
+    question.question.size = strlen(q->question);
+    question.question.data = malloc(question.question.size + 1);
+    strcpy(question.question.data, q->question);
+    for (int j = 0; j < 4; ++j)
+    {
+        question.options[j].size = strlen(q->options[j]);
+        question.options[j].data = malloc(question.options[j].size + 1);
+        strcpy(question.options[j].data, q->options[j]);
+    }
+    question.correct_answer = q->correct_answer;
+    return question;
+}
+
+ByteArray Quiz_enter_data(Quiz* quiz)
 {
     Quiz__Proto__Quiz message = QUIZ__PROTO__QUIZ__INIT;
 
@@ -322,32 +341,16 @@ ByteArray Quiz_enter_data(void)
     return result;
 }
 
-ByteArray Quiz_load_default(void)
+void Quiz_load_default(Quiz* quiz)
 {
-    Quiz__Proto__Quiz message = QUIZ__PROTO__QUIZ__INIT;
-
-    message.n_questions = (sizeof(g_first_round) + sizeof(g_second_round)) / sizeof(ConstantQuestion);
-    message.questions = malloc(sizeof(Quiz__Proto__Question*) * message.n_questions);
-    for (size_t i = 0; i < sizeof(g_first_round) / sizeof(ConstantQuestion); i++)
+    Quiz_init(quiz);
+    for (size_t i = 0; i < sizeof(g_first_round) / sizeof(ConstantQuestion); ++i)
     {
-        Quiz__Proto__Question question = QUIZ__PROTO__QUESTION__INIT;
-        question.question = management__strdup(g_first_round[i].question);
-        question.n_options = 4;
-        question.options = malloc(sizeof(char*) * question.n_options);
-        for (size_t j = 0; j < question.n_options; j++)
-        {
-            question.options[j] = management__strdup(g_first_round[i].options[j]);
-        }
-        question.correct_answer = g_first_round[i].correct_answer;
-        message.questions[i] = management__memdup(&question, sizeof(Quiz__Proto__Question));
+        QuestionVector_push(&quiz->round_1, ConstantQuestion_into_question(&g_first_round[i]));
     }
-    message.prize = 1000000;
-
-    size_t buffer_size = quiz__proto__quiz__get_packed_size(&message);
-    ByteArray result = {
-        .data = malloc(buffer_size),
-        .size = buffer_size,
-    };
-    quiz__proto__quiz__pack(&message, result.data);
-    return result;
+    for (size_t i = 0; i < sizeof(g_second_round) / sizeof(ConstantQuestion); ++i)
+    {
+        QuestionVector_push(&quiz->round_2, ConstantQuestion_into_question(&g_second_round[i]));
+    }
+    quiz->prize = 1000000;
 }
