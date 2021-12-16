@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package quiz.proto;
+
+enum Round
+{
+    ROUND_1 = 0;
+    ROUND_2 = 1;
+}
+
+message Question
+{
+    Round round = 1;
+    string question = 2;
+    repeated string options = 3;
+    int32 correct_answer = 4;
+}
+
+message Quiz
+{
+    repeated Question questions = 1;
+    int64 prize = 2;
+}

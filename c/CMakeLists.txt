@@ -58,5 +58,6 @@ pushd_executable(
 target_link_libraries("bank" PRIVATE "management")
 attach_protobuf("bank" "BankState")
 
-pushd_executable("quiz" "quiz.c")
+pushd_executable("quiz" "define.c" "quiz.c")
 target_link_libraries("quiz" PRIVATE "management")
+attach_protobuf("quiz" "Quiz")
