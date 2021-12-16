@@ -61,7 +61,13 @@ target_link_libraries("bank" PRIVATE "management")
 attach_protobuf("bank" "BankState")
 
 pushd_executable(
-    "quiz" "define.c" "question.c" "quiz_application.c" "quiz.c" "serialize.c"
+    "quiz"
+    "define.c"
+    "deserialize.c"
+    "question.c"
+    "quiz_application.c"
+    "quiz.c"
+    "serialize.c"
 )
 target_link_libraries("quiz" PRIVATE "management")
 attach_protobuf("quiz" "Quiz")
