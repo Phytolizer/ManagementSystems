@@ -12,21 +12,6 @@ set(CMAKE_AUTHOR_EMAIL "me@phytolizer.dev")
 set(CMAKE_AUTHOR_NAME "Kyle Coffey")
 configure_file("config.h.cin" "${PROJECT_BINARY_DIR}/config.h")
 
-function(pushd_library TARGET_NAME)
-    list(TRANSFORM "ARGN" PREPEND "${TARGET_NAME}/src/")
-    add_library("${TARGET_NAME}" ${ARGN})
-endfunction(pushd_library)
-
-function(pushd_executable TARGET_NAME)
-    list(TRANSFORM "ARGN" PREPEND "${TARGET_NAME}/src/")
-    add_executable("${TARGET_NAME}" ${ARGN})
-    if(UNIX)
-        set_target_properties(
-            "${TARGET_NAME}" PROPERTIES OUTPUT_NAME "${TARGET_NAME}.exe"
-        )
-    endif(UNIX)
-endfunction(pushd_executable)
-
 function(attach_protobuf TARGET_NAME PROTOBUF_FILE_BASENAME)
     add_custom_command(
         OUTPUT
