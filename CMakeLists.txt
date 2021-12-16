@@ -9,3 +9,4 @@ set(CMAKE_AUTHOR_EMAIL "me@phytolizer.dev")
 set(CMAKE_AUTHOR_NAME "Kyle Coffey")
 
 add_subdirectory("c")
+add_subdirectory("cpp")
