@@ -8,8 +8,6 @@ project(
 
 list(APPEND "CMAKE_MODULE_PATH" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-set(CMAKE_AUTHOR_EMAIL "me@phytolizer.dev")
-set(CMAKE_AUTHOR_NAME "Kyle Coffey")
 configure_file("config.h.cin" "${PROJECT_BINARY_DIR}/config.h")
 
 function(attach_protobuf TARGET_NAME PROTOBUF_FILE_BASENAME)
