@@ -1,2 +1,2 @@
 [workspace]
-members = ["p938_range_sum_bst"]
+members = ["bank_mgmt"]

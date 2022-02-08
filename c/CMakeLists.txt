@@ -14,6 +14,7 @@ function(attach_protobuf TARGET_NAME PROTOBUF_FILE_BASENAME)
     add_custom_command(
         OUTPUT
             "${PROJECT_BINARY_DIR}/${TARGET_NAME}/proto/${PROTOBUF_FILE_BASENAME}.pb-c.c"
+            "${PROJECT_BINARY_DIR}/${TARGET_NAME}/proto/${PROTOBUF_FILE_BASENAME}.pb-c.h"
         COMMAND
             "protoc-c" "--c_out=${PROJECT_BINARY_DIR}"
             "-I${PROJECT_SOURCE_DIR}"

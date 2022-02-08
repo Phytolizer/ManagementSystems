@@ -1,0 +1,10 @@
+[package]
+name = "bank_mgmt"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "3.0.14", features = ["derive"] }
+ron = "0.7.0"
+serde = "1.0.136"
+thiserror = "1.0.30"
