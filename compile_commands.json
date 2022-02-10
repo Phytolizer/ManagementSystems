@@ -1,0 +1,72 @@
+[
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/build/dev/c -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/bank.dir/bank/src/bank.c.o -c /home/phyto/Code/ManagementSystems/c/bank/src/bank.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/bank/src/bank.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/build/dev/c -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/bank.dir/bank/src/find.c.o -c /home/phyto/Code/ManagementSystems/c/bank/src/find.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/bank/src/find.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/build/dev/c -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/bank.dir/bank/src/load.c.o -c /home/phyto/Code/ManagementSystems/c/bank/src/load.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/bank/src/load.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/build/dev/c -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/bank.dir/bank/src/save.c.o -c /home/phyto/Code/ManagementSystems/c/bank/src/save.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/bank/src/save.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/build/dev/c -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/bank.dir/bank/src/structure.c.o -c /home/phyto/Code/ManagementSystems/c/bank/src/structure.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/bank/src/structure.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/build/dev/c -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/bank.dir/bank/src/today.c.o -c /home/phyto/Code/ManagementSystems/c/bank/src/today.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/bank/src/today.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/quiz.dir/quiz/src/define.c.o -c /home/phyto/Code/ManagementSystems/c/quiz/src/define.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/quiz/src/define.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/quiz.dir/quiz/src/deserialize.c.o -c /home/phyto/Code/ManagementSystems/c/quiz/src/deserialize.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/quiz/src/deserialize.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/quiz.dir/quiz/src/question.c.o -c /home/phyto/Code/ManagementSystems/c/quiz/src/question.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/quiz/src/question.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/quiz.dir/quiz/src/quiz_application.c.o -c /home/phyto/Code/ManagementSystems/c/quiz/src/quiz_application.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/quiz/src/quiz_application.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/quiz.dir/quiz/src/quiz.c.o -c /home/phyto/Code/ManagementSystems/c/quiz/src/quiz.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/quiz/src/quiz.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/CMakeFiles/quiz.dir/quiz/src/serialize.c.o -c /home/phyto/Code/ManagementSystems/c/quiz/src/serialize.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/quiz/src/serialize.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/cc -I/home/phyto/Code/ManagementSystems/c/third/binn/. -g -o c/third/binn/CMakeFiles/binn.dir/binn.c.o -c /home/phyto/Code/ManagementSystems/c/third/binn/binn.c",
+  "file": "/home/phyto/Code/ManagementSystems/c/third/binn/binn.c"
+},
+{
+  "directory": "/home/phyto/Code/ManagementSystems/build/dev",
+  "command": "/usr/bin/c++ -g -o cpp/CMakeFiles/school_billing.dir/school_billing/src/main.cpp.o -c /home/phyto/Code/ManagementSystems/cpp/school_billing/src/main.cpp",
+  "file": "/home/phyto/Code/ManagementSystems/cpp/school_billing/src/main.cpp"
+}
+]
