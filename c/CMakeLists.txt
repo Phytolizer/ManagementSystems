@@ -8,8 +8,21 @@ project(
 
 configure_file("config.h.cin" "${PROJECT_BINARY_DIR}/config.h")
 
-add_subdirectory("third/binn")
+find_package(CapnProto REQUIRED)
 
+set(INCDIR "${PROJECT_BINARY_DIR}/include")
+add_custom_target(
+    create_incdir COMMAND "${CMAKE_COMMAND}" -E make_directory "${INCDIR}"
+)
+add_custom_command(
+    OUTPUT "${INCDIR}/bank.capnp.c" "${INCDIR}/bank.capnp.h"
+    DEPENDS create_incdir "${PROJECT_SOURCE_DIR}/bank/proto/bank.capnp"
+    COMMAND
+        "${CAPNP_EXECUTABLE}" compile -o "c:${INCDIR}" --src-prefix
+        "${PROJECT_SOURCE_DIR}/bank/proto"
+        "${PROJECT_SOURCE_DIR}/bank/proto/bank.capnp"
+)
 pushd_executable("bank" "bank.c")
-target_include_directories(bank PRIVATE "${PROJECT_BINARY_DIR}")
-target_link_libraries("bank" PRIVATE binn)
+target_sources("bank" PRIVATE "${INCDIR}/bank.capnp.c")
+target_include_directories(bank PRIVATE "${PROJECT_BINARY_DIR}/include")
+target_link_libraries("bank" PRIVATE capnp_c)
