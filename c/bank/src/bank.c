@@ -18,12 +18,6 @@
 #define LIST_IMPL
 #include "bank/list.h"
 
-#define DEBUG(Name, T, Fmt) \
-  static T Name(T t) { \
-    printf(Fmt "\n", t); \
-    return t; \
-  }
-
 static String StringFromCString(const char* cstr, size_t len) {
   String str;
   InitString(&str);
@@ -54,8 +48,6 @@ static void PrintCentered(const char* text) {
   }
   printf("%s\n", text);
 }
-
-DEBUG(DebugInt, int, "%d");
 
 static int CreateAccount(Bank* bank) {
   printf("\x1b[2J\x1b[H");
