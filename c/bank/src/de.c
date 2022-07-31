@@ -16,7 +16,10 @@ bool DeserializeBank(Bank* bank, const char* filename) {
     return false;
   }
   struct capn c;
-  capn_init_fp(&c, fp, 0);
+  int capn_init_ret = capn_init_fp(&c, fp, 0);
+  if (capn_init_ret != 0) {
+    return false;
+  }
   fclose(fp);
   ProtoBank_ptr pbp;
   capn_ptr cr = capn_root(&c);
