@@ -82,7 +82,11 @@ static int CreateAccount(Bank* bank) {
     // 20 for UINT64_MAX + 1 for newline + 1 for NUL
     char no_str[22];
     if (fgets(no_str, 22, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     uint64_t no;
@@ -109,7 +113,11 @@ static int CreateAccount(Bank* bank) {
     // space for name + 1 for NUL
     char name[257];
     if (fgets(name, 257, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     size_t len = strlen(name);
@@ -130,7 +138,11 @@ static int CreateAccount(Bank* bank) {
     // space for YYYY-MM-DD and newline
     char date[12];
     if (fgets(date, 12, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     Date dob;
@@ -148,7 +160,11 @@ static int CreateAccount(Bank* bank) {
     // space for age + 1 for NUL
     char age_str[11];
     if (fgets(age_str, 11, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     uint32_t age;
@@ -165,7 +181,11 @@ static int CreateAccount(Bank* bank) {
     // space for address + 1 for newline + 1 for NUL
     char address[258];
     if (fgets(address, 258, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     size_t len = strlen(address);
@@ -186,7 +206,11 @@ static int CreateAccount(Bank* bank) {
     // space for citizenship number + 1 for newline + 1 for NUL
     char citizenship[17];
     if (fgets(citizenship, 17, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     size_t len = strlen(citizenship);
@@ -207,7 +231,11 @@ static int CreateAccount(Bank* bank) {
     // space for (###) ###-#### + 1 for newline + 1 for NUL
     char phone[16];
     if (fgets(phone, 16, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     size_t len = strlen(phone);
@@ -228,7 +256,11 @@ static int CreateAccount(Bank* bank) {
     // space for amount + 1 for decimal pt + 1 for newline + 1 for NUL
     char amount_str[23];
     if (fgets(amount_str, 23, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     char* endp = NULL;
@@ -258,7 +290,11 @@ static int CreateAccount(Bank* bank) {
     // space for choice + 1 for newline + 1 for NUL
     char choice_str[3];
     if (fgets(choice_str, 3, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     char* endp = NULL;
@@ -282,13 +318,52 @@ static int CreateAccount(Bank* bank) {
     // space for choice + 1 for newline + 1 for NUL
     char choice_str[3];
     if (fgets(choice_str, 3, stdin) == NULL) {
-      perror("fgets");
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
       exit(1);
     }
     char* endp = NULL;
     long choice = strtol(choice_str, &endp, 10);
     if (endp == choice_str || *endp != '\n' && *endp != '\0' || choice < 1 ||
         choice > 3) {
+      fprintf(stderr, "Invalid choice: %s\n", choice_str);
+      continue;
+    }
+    return choice;
+  }
+}
+
+int ListAccounts(Bank* bank) {
+  printf("Accounts:\n");
+  for (size_t i = 0; i < BankAccountListSize(&bank->accounts); ++i) {
+    BankAccount* account = BankAccountListGet(&bank->accounts, i);
+    printf("#%" PRIu64 ": %" PRIstr ", address: %" PRIstr ", phone: %" PRIstr
+           "\n",
+           account->no, STRING_ARG(account->name), STRING_ARG(account->address),
+           STRING_ARG(account->phone));
+  }
+  while (true) {
+    printf("\n");
+    printf("What to do next?\n");
+    printf(" 1. Return to main menu\n");
+    printf(" 2. Quit\n");
+    printf("Enter your choice: ");
+    char choice_str[3];
+    if (fgets(choice_str, 3, stdin) == NULL) {
+      if (errno != 0) {
+        perror("fgets");
+      } else {
+        printf("Goodbye.\n");
+      }
+      exit(1);
+    }
+    char* endp = NULL;
+    long choice = strtol(choice_str, &endp, 10);
+    if (endp == choice_str || *endp != '\n' && *endp != '\0' || choice < 1 ||
+        choice > 2) {
       fprintf(stderr, "Invalid choice: %s\n", choice_str);
       continue;
     }
@@ -311,7 +386,8 @@ void Menu(Bank* bank) {
   while (true) {
     printf("What to do?\n");
     printf(" 1. Create an account\n");
-    printf(" 2. Quit\n");
+    printf(" 2. List accounts\n");
+    printf(" 3. Quit\n");
     printf("Enter your choice: ");
     // space for choice + 1 for newline + 1 for NUL
     char choice_str[3];
@@ -322,7 +398,7 @@ void Menu(Bank* bank) {
     char* endp = NULL;
     long choice = strtol(choice_str, &endp, 10);
     if (endp == choice_str || *endp != '\n' && *endp != '\0' || choice < 1 ||
-        choice > 2) {
+        choice > 3) {
       fprintf(stderr, "Invalid choice: %s\n", choice_str);
       continue;
     }
@@ -342,6 +418,14 @@ void Menu(Bank* bank) {
         }
         break;
       case 2:
+        choice = ListAccounts(bank);
+        switch (choice) {
+          case 1:
+            continue;
+          case 2:
+            return;
+        }
+      case 3:
         return;
     }
   }
