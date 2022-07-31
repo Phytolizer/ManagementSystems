@@ -58,7 +58,7 @@ enum LoadError {
     #[error(transparent)]
     Io(io::Error),
     #[error(transparent)]
-    Ron(ron::Error),
+    RmpDecode(rmp_serde::decode::Error),
 }
 
 impl From<io::Error> for LoadError {
@@ -68,13 +68,13 @@ impl From<io::Error> for LoadError {
 }
 
 fn try_load_file(path: PathBuf) -> Result<State, LoadError> {
-    let file = fs::read_to_string(path)?;
-    ron::from_str(&file).map_err(LoadError::Ron)
+    let file = fs::read(path)?;
+    rmp_serde::from_slice(&file).map_err(LoadError::RmpDecode)
 }
 
 fn main() -> Result<(), &'static str> {
     let args = Args::parse();
-    let state = match args.load {
+    let mut state = match args.load {
         Some(load) => match try_load_file(load) {
             Ok(state) => state,
             Err(e) => {
