@@ -382,7 +382,7 @@ void FreeBank(Bank* bank) {
   FreeBankAccountList(&bank->accounts);
 }
 
-void Menu(Bank* bank) {
+void ShowMenu(Bank* bank) {
   while (true) {
     printf("What to do?\n");
     printf(" 1. Create an account\n");
@@ -437,7 +437,7 @@ int main(void) {
     printf("Could not read bank.bin, starting from scratch\n");
   }
 
-  Menu(&bank);
+  ShowMenu(&bank);
 
   SerializeBank(&bank, "bank.bin");
   FreeBank(&bank);
