@@ -22,7 +22,9 @@ add_custom_command(
         "${PROJECT_SOURCE_DIR}/bank/proto"
         "${PROJECT_SOURCE_DIR}/bank/proto/bank.capnp"
 )
-pushd_executable("bank" "bank.c")
+pushd_executable("bank" "bank.c" "ser.c" "string.c")
 target_sources("bank" PRIVATE "${INCDIR}/bank.capnp.c")
-target_include_directories(bank PRIVATE "${PROJECT_BINARY_DIR}/include")
+target_include_directories(
+    "bank" PRIVATE "bank/include" "${PROJECT_BINARY_DIR}/include"
+)
 target_link_libraries("bank" PRIVATE capnp_c)

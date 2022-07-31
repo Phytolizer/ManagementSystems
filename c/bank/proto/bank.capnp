@@ -1,6 +1,6 @@
 @0xb2da9d5fcdfcee4f;
 
-struct Bank {
+struct ProtoBank {
   accounts @0 :List(Account);
 
   struct Account {

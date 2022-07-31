@@ -2,3 +2,4 @@
 BasedOnStyle: Google
 PointerAlignment: Left
 AllowShortFunctionsOnASingleLine: false
+AlignEscapedNewlines: DontAlign
