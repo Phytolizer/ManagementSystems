@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 
 #include "bank/de.h"
+#include "bank/ser.h"
 
 #define LIST_TYPE BankAccount
 #define LIST_NAME BankAccount
@@ -21,4 +22,7 @@ int main(void) {
   if (!DeserializeBank(&bank, "bank.bin")) {
     printf("Could not read bank.bin, starting from scratch\n");
   }
+
+  SerializeBank(&bank, "bank.bin");
+  FreeBank(&bank);
 }
