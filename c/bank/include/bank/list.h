@@ -35,6 +35,8 @@
 #define LIST_GET_NAME LIST_MAKE_STR_END(Get)
 #define LIST_SIZE_NAME LIST_MAKE_STR_END(Size)
 #define LIST_ADD_NAME LIST_MAKE_STR_END(Add)
+#define LIST_RESIZE_NAME LIST_MAKE_STR_BEG(Resize)
+#define LIST_RESERVE_NAME LIST_MAKE_STR_BEG(Reserve)
 
 #ifndef LIST_SUFFIX
 #define LIST_SUFFIX List
@@ -53,6 +55,8 @@ LIST_STATIC void LIST_ADD_NAME(LIST* list, LIST_TYPE value);
 LIST_STATIC LIST_TYPE* LIST_GET_NAME(LIST* list, size_t index);
 LIST_STATIC size_t LIST_SIZE_NAME(LIST* list);
 LIST_STATIC void LIST_FREE_NAME(LIST* list);
+LIST_STATIC void LIST_RESIZE_NAME(LIST* list, size_t size);
+LIST_STATIC void LIST_RESERVE_NAME(LIST* list, size_t capacity);
 
 #else
 
@@ -82,6 +86,7 @@ LIST_STATIC void LIST_ADD_NAME(LIST* list, LIST_TYPE value) {
     for (size_t i = 0; i < list->size; i++) {
       newarr[i] = list->arr[i];
     }
+    LIST_FREE(list->arr);
     list->arr = newarr;
   }
   list->arr[list->size++] = value;
@@ -99,6 +104,21 @@ LIST_STATIC void LIST_FREE_NAME(LIST* list) {
   LIST_FREE(list->arr);
 }
 
+LIST_STATIC void LIST_RESIZE_NAME(LIST* list, size_t size) {
+  LIST_RESERVE_NAME(list, size);
+  list->size = size;
+}
+
+LIST_STATIC void LIST_RESERVE_NAME(LIST* list, size_t capacity) {
+  LIST_TYPE* newarr = LIST_CALLOC(capacity, sizeof(LIST_TYPE));
+  for (size_t i = 0; i < list->size; i++) {
+    newarr[i] = list->arr[i];
+  }
+  LIST_FREE(list->arr);
+  list->arr = newarr;
+  list->capacity = capacity;
+}
+
 #endif
 
 #undef LIST_IMPL
@@ -108,6 +128,7 @@ LIST_STATIC void LIST_FREE_NAME(LIST* list) {
 #undef LIST_MAKE_STR_END
 #undef LIST_ADD_NAME
 #undef LIST_INIT_NAME
+#undef LIST_RESIZE_NAME
 #undef LIST_GET_NAME
 #undef LIST_FREE_NAME
 #undef LIST_FREE
