@@ -297,6 +297,13 @@ static int CreateAccount(Bank* bank) {
 }
 
 void FreeBank(Bank* bank) {
+  for (size_t i = 0; i < BankAccountListSize(&bank->accounts); i++) {
+    BankAccount* acc = BankAccountListGet(&bank->accounts, i);
+    FreeString(&acc->name);
+    FreeString(&acc->address);
+    FreeString(&acc->citizenship);
+    FreeString(&acc->phone);
+  }
   FreeBankAccountList(&bank->accounts);
 }
 
