@@ -43,3 +43,5 @@ typedef struct {
 typedef struct {
   BankAccountList accounts;
 } Bank;
+
+void FreeBank(Bank* bank);
